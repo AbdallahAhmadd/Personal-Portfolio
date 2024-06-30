@@ -98,6 +98,11 @@
     width: 100%;
     font-weight: 600;
     font-size: 14px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem; /* Add space between the icon and the text */
 
 }
 
