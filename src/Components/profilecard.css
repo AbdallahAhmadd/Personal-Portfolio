@@ -1,0 +1,115 @@
+/*Main container styling*/
+#container{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 25%;
+    background-color: hsl(0, 0%, 12%);
+    padding: 4%;
+    border-radius: 18px;
+    height: 36rem;
+}
+@media (max-width: 600px) {
+    #container {
+        width: 90%;
+        padding: 2%;
+        height: auto;
+    }
+}
+/*name and country styling*/
+#header h2,#header h3{
+    margin: 1px;
+}
+
+
+#heading{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    text-align: center;
+
+}
+#heading h3{
+    color: hsl(75, 94%, 57%);
+}
+
+
+/*subheading styling*/
+#subheading{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: white;
+    margin-top: 0;
+    margin-bottom: 0;
+    text-align: center;
+}
+
+
+
+
+/*Logo styling*/
+#logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2rem;
+    width: 100%; /* Ensure the container spans the full width */
+    max-width: 100%; /* Ensure the container does not exceed the full width */
+    padding: 0 1rem; /* Optional: add some padding for better responsiveness */
+    box-sizing: border-box; /* Include padding in the element's total width and height */
+}
+
+#logo img {
+    max-width: 50%; /* Use max-width to ensure responsiveness */
+    height: auto;
+    border-radius: 50%;
+}
+@media (max-width: 600px) {
+    #logo img {
+        max-width: 40%; /* Adjust the max-width for smaller screens */
+    }
+}
+
+
+
+
+
+
+
+/*Button Styling*/
+#content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    gap: 1rem;
+
+}
+#content button{
+    background-color: hsl(0, 0%, 20%);
+    color: white;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    padding: 1rem;
+    width: 100%;
+    font-weight: 600;
+    font-size: 14px;
+
+}
+
+#content button:hover{
+    background-color: hsl(75, 94%, 57%);
+    color: black;
+}
+
+@media (max-width: 600px) {
+    #content button{
+
+        font-size: 12px;
+    }
+
+}

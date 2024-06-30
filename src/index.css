@@ -1,0 +1,21 @@
+@font-face {
+    font-family:'Inter';
+    font-style:normal;
+    font-weight:normal;
+    src: url("./assets/fonts/Inter-VariableFont_slnt,wght.ttf") format("truetype");
+}
+
+:root{
+  font-family: 'Inter', sans-serif;
+}
+p{
+    font-size: 14px;
+
+}
+
+@media (max-width: 600px) {
+    p{
+        font-size: 12px;
+    }
+
+}
