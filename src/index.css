@@ -8,14 +8,19 @@
 :root{
   font-family: 'Inter', sans-serif;
 }
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%; /* Ensure full width */
+    box-sizing: border-box;
+}
 p{
     font-size: 14px;
-
 }
 
 @media (max-width: 600px) {
     p{
         font-size: 12px;
     }
-
 }

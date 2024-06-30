@@ -1,0 +1,11 @@
+.page-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: hsl(0, 0%, 8%);
+    height: 100vh; /* Full viewport height */
+    width: 100vw; /* Full viewport width */
+    box-sizing: border-box;
+    overflow-y: auto; /* Enable vertical scrolling within the container */
+}
