@@ -114,12 +114,16 @@
     justify-content: center;
     align-items: center;
     gap: 0.5rem; /* Add space between the icon and the text */
-
+    background: linear-gradient(140deg,hsl(75, 94%, 57%) 50%, hsl(0, 0%, 20%) 50% );
+    background-size: 200% 200%;
+    background-position: 100% 100%;
+    transition: all .9s ease-out;
 }
 
 #content button:hover{
     background-color: hsl(75, 94%, 57%);
     color: black;
+    background-position: 0 0;
 }
 
 @media (max-width: 600px) {
