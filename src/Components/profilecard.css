@@ -8,6 +8,8 @@
     padding: 4%;
     border-radius: 18px;
     height: 36rem;
+    transition: all 1.5s ease;
+
 }
 
 #container.row {
@@ -18,7 +20,7 @@
     padding: 2%;
     border-radius: 18px;
     height: 46rem;
-    transition: width 2.5s,height 2.5s;
+    transition: all 2.5s ease;
     width: 92%;
 }
 
@@ -129,16 +131,32 @@
 }
 
 
-#profile-skills-container{
+#profile-skills-container {
+    position: relative; /* Make this container the reference point for absolute positioning */
     display: flex;
+    flex-direction: column;
     height: 100%;
     width: 24%;
-    margin: 0 ;
+    margin: 0;
     justify-content: center;
     align-items: center;
-    margin-right:2rem ;
-
+    margin-right: 2rem;
 }
+
+.fa-arrow-left {
+    position: absolute;
+    top: 0; /* Adjust as needed */
+    left: 20px; /* Adjust as needed */
+    color: white;
+    font-size: 38px;
+    cursor: pointer;
+    transform: scale(1);
+    transition: transform 0.2s linear;
+}
+.fa-arrow-left:hover{
+    transform: scale(1.1);
+}
+
 
 #profile-projects-container{
     width: 60%;
@@ -148,3 +166,5 @@
     grid-template-columns: repeat(2, auto); /* Creates 2 columns with auto width */
     gap: 10px; /* Adjust gap as needed */
 }
+
+

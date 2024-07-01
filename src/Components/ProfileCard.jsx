@@ -23,9 +23,7 @@ function ProfileCard(){
     const [isProject,setIsProject] = useState(true)
 
     function toggleExpand() {
-        const container = document.getElementById('container');
-        container.classList.toggle('expanded');
-        setIsProject(false);
+        setIsProject(!isProject)
     }
 
     return(
@@ -55,9 +53,12 @@ function ProfileCard(){
                 <button onClick={handleInstagramClick}>Instagram<i className="fa-brands fa-instagram"></i></button>
             </div>)}
 
-            {!isProject && (<div id={'profile-skills-container'}>
+            {!isProject && (<div id={'profile-skills-container'} >
+                <i onClick={toggleExpand}  className="fa-solid fa-arrow-left"></i>
                 <SkillsCard/>
             </div>)}
+
+
             {!isProject && (<div id={'profile-projects-container'}>
                 <ProjectsCard image={Ecommerce}
                               title={'Ecommerce Admin Page'}
