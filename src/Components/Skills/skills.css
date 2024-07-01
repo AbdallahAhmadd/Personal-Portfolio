@@ -3,14 +3,14 @@
     flex-direction: column;
     justify-content: center;
     background-color: hsl(0, 0%, 12%);
-    padding: 2%;
+    padding: 4%;
     border-radius: 28px;
     width: fit-content;
     color: white;
     height: auto;
     filter: drop-shadow(0 0 0.75rem #701827);
-    opacity: 0;
-    transition: opacity 4.5s;
+    opacity: 0.1;
+    transition: opacity 3.5s;
 }
 
 #skills-container.expanded {
@@ -27,6 +27,8 @@
     gap: 10px; /* Adjust gap as needed */
 }
 
+
+
 .skill-card {
     display: flex;
     justify-content: center;
@@ -37,6 +39,11 @@
     width: fit-content; /* Make sure the card fits the content */
     cursor: pointer;
     background-color: hsl(0, 0%, 92%);
+    transition: transform 0.2s linear;
+    transform: scale(1);
+}
+.skill-card:hover{
+    transform: scale(1.1);
 }
 
 .skills-image {
