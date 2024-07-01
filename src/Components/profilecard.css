@@ -8,12 +8,21 @@
     padding: 4%;
     border-radius: 18px;
     height: 36rem;
-    transition: width 1.5s
 }
 
-#container.expanded{
-    width: 80%;
+#container.row {
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    background-color: hsl(0, 0%, 12%);
+    padding: 2%;
+    border-radius: 18px;
+    height: 46rem;
+    transition: width 2.5s,height 2.5s;
+    width: 92%;
 }
+
+
 @media (max-width: 600px) {
     #container {
         width: 70%;
@@ -78,10 +87,6 @@
 
 
 
-
-
-
-
 /*Button Styling*/
 #content{
     display: flex;
@@ -121,4 +126,25 @@
         font-size: 12px;
     }
 
+}
+
+
+#profile-skills-container{
+    display: flex;
+    height: 100%;
+    width: 24%;
+    margin: 0 ;
+    justify-content: center;
+    align-items: center;
+    margin-right:2rem ;
+
+}
+
+#profile-projects-container{
+    width: 60%;
+    height: auto;
+    margin-left: 2rem;
+    display: grid;
+    grid-template-columns: repeat(2, auto); /* Creates 2 columns with auto width */
+    gap: 10px; /* Adjust gap as needed */
 }
