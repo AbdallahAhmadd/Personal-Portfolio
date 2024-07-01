@@ -9,6 +9,12 @@
     color: white;
     height: auto;
     filter: drop-shadow(0 0 0.75rem #701827);
+    opacity: 0;
+    transition: opacity 4.5s;
+}
+
+#skills-container.expanded {
+    opacity: 1;
 }
 
 #skills-container h1{
@@ -28,14 +34,13 @@
     border: 1px solid #ddd; /* Optional: Add border for skill cards */
     border-radius: 40px; /* Optional: Add rounded corners */
     padding: 10px; /* Optional: Add padding */
-    background-color: #fff; /* Optional: Add background color */
     width: fit-content; /* Make sure the card fits the content */
     cursor: pointer;
     background-color: hsl(0, 0%, 92%);
 }
 
 .skills-image {
-    width: 45px; /* Set a fixed width for the images */
+    width: 35px; /* Set a fixed width for the images */
     height: auto; /* Maintain aspect ratio */
 
 }

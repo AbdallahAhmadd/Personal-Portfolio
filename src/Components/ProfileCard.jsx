@@ -1,5 +1,5 @@
 import './profilecard.css'
-
+import SkillsCard from '../Components/Skills/Skills.jsx'
 import Personal from '../assets/Images/MyPic.jpeg'
 import {useState} from "react";
 
@@ -49,6 +49,8 @@ function ProfileCard(){
               <button onClick={handleLinkedInClick}>LinkedIn<i className="fa-brands fa-linkedin"></i></button>
               <button onClick={handleInstagramClick}>Instagram<i className="fa-brands fa-instagram"></i></button>
           </div>)}
+
+          {!isProject && (<SkillsCard isProject={isProject}/>)}
 
       </div>
     );
