@@ -1,6 +1,6 @@
 import './profilecard.css'
 
-import Personal from '../assets/MyPic.jpeg'
+import Personal from '../assets/Images/MyPic.jpeg'
 import {useState} from "react";
 
 function handleGitClick(){

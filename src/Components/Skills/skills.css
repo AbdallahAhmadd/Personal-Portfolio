@@ -1,0 +1,41 @@
+#skills-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: hsl(0, 0%, 12%);
+    padding: 2%;
+    border-radius: 28px;
+    width: fit-content;
+    color: white;
+    height: auto;
+    filter: drop-shadow(0 0 0.75rem #701827);
+}
+
+#skills-container h1{
+    margin-top: 0;
+}
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(4, auto); /* Creates 3 columns with auto width */
+    gap: 10px; /* Adjust gap as needed */
+}
+
+.skill-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #ddd; /* Optional: Add border for skill cards */
+    border-radius: 40px; /* Optional: Add rounded corners */
+    padding: 10px; /* Optional: Add padding */
+    background-color: #fff; /* Optional: Add background color */
+    width: fit-content; /* Make sure the card fits the content */
+    cursor: pointer;
+    background-color: hsl(0, 0%, 92%);
+}
+
+.skills-image {
+    width: 45px; /* Set a fixed width for the images */
+    height: auto; /* Maintain aspect ratio */
+
+}
