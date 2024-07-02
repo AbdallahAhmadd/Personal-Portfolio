@@ -96,6 +96,7 @@
 @media (max-width: 600px) {
     #overlay button{
         font-size: 10px;
+        padding: 6px 11px;
 
     }
 
