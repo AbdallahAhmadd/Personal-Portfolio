@@ -30,6 +30,11 @@
         width: 70%;
         height: auto;
     }
+    #container.row {
+        width: 80%;
+        height: auto;
+        flex-direction: column;
+    }
 }
 /*name and country styling*/
 #header h2,#header h3{
@@ -128,7 +133,6 @@
 
 @media (max-width: 600px) {
     #content button{
-
         font-size: 12px;
     }
 
@@ -145,6 +149,14 @@
     justify-content: center;
     align-items: center;
     margin-right: 2rem;
+}
+@media (max-width: 600px) {
+    #profile-skills-container {
+        width: 100%; /* Adjust the width for smaller screens */
+        margin-right: 0; /* Remove the right margin for smaller screens */
+
+    }
+
 }
 
 .fa-arrow-left {
@@ -171,4 +183,12 @@
     gap: 10px; /* Adjust gap as needed */
 }
 
+@media (max-width: 600px){
+    #profile-projects-container{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+}
 

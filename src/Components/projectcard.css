@@ -16,11 +16,13 @@
 
 }
 
+
 /* Media query for laptop screens */
 @media (max-width: 1024px) {
     #project-container {
         width: 35%;
         height: auto; /* Allow height to adjust based on content */
+        margin-bottom: 10%;
     }
 }
 

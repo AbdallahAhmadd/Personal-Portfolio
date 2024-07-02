@@ -13,6 +13,9 @@
     transition: opacity 3.5s;
 }
 
+
+
+
 #skills-container.expanded {
     opacity: 1;
 }
@@ -50,4 +53,25 @@
     width: 35px; /* Set a fixed width for the images */
     height: auto; /* Maintain aspect ratio */
 
+}
+@media (max-width: 600px) {
+    #skills-container {
+        margin-top: 20%;
+        width: 70%; /* Use more width on smaller screens */
+        padding: 5%; /* Increase padding for better spacing */
+        margin-bottom: 10%;
+    }
+
+    .skills-grid {
+        grid-template-columns: repeat(4, 1fr); /* Change to 2 columns */
+    }
+
+    .skill-card {
+        padding:5px; /* Increase padding for better touch target */
+        border-radius: 20px; /* Reduce border radius for smaller screens */
+    }
+
+    .skills-image {
+        width: 30px; /* Slightly reduce image size */
+    }
 }
