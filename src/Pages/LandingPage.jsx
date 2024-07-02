@@ -7,7 +7,7 @@ function LandingPage(){
     useEffect(() => {
         const pageContainer = document.querySelector('.page-container');
 
-        if (!isProject) {
+        if (isProject) {
             pageContainer.classList.add('full-height');
         } else {
             pageContainer.classList.remove('full-height');
