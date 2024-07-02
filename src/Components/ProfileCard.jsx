@@ -19,12 +19,8 @@ function handleInstagramClick(){
 }
 
 
-function ProfileCard(){
-    const [isProject,setIsProject] = useState(true)
+function ProfileCard({isProject,toggleExpand}){
 
-    function toggleExpand() {
-        setIsProject(!isProject)
-    }
 
     return(
         <div id="container" className={!isProject ? 'row' : ''}>

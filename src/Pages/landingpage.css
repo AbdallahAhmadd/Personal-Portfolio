@@ -11,16 +11,13 @@
 }
 
 @media (max-width: 600px){
-    .page-container{
+    .page-container {
         padding: 2%; /* Add padding for better spacing */
-        height: 100%;
+        height: 100vh;
         width: 100%;
     }
-}
-
-@media (max-width: 600px) {
-    .page-container {
-
+    .page-container.full-height {
+        height: 100%; /* Full content height */
     }
-
 }
+
