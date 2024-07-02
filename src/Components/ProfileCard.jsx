@@ -23,9 +23,9 @@ function ProfileCard({isProject,toggleExpand}){
 
 
     return(
-        <div id="container" className={!isProject ? 'row' : ''}>
+        <div id="container" className={isProject ? 'row' : ''}>
 
-            {isProject && (<div id={'header'}>
+            {!isProject && (<div id={'header'}>
 
                 <div id={'logo'}>
                     <img src={Personal} alt={'Photo of the author'}/>
@@ -42,20 +42,20 @@ function ProfileCard({isProject,toggleExpand}){
 
             </div>)}
 
-            {isProject && (<div id={'content'}>
+            {!isProject && (<div id={'content'}>
                 <button onClick={toggleExpand}>Projects</button>
                 <button onClick={handleGitClick}>Github<i className="fa-brands fa-github"></i></button>
                 <button onClick={handleLinkedInClick}>LinkedIn<i className="fa-brands fa-linkedin"></i></button>
                 <button onClick={handleInstagramClick}>Instagram<i className="fa-brands fa-instagram"></i></button>
             </div>)}
 
-            {!isProject && (<div id={'profile-skills-container'} >
+            {isProject && (<div id={'profile-skills-container'} >
                 <i onClick={toggleExpand}  className="fa-solid fa-arrow-left"></i>
                 <SkillsCard/>
             </div>)}
 
 
-            {!isProject && (<div id={'profile-projects-container'}>
+            {isProject && (<div id={'profile-projects-container'}>
                 <ProjectsCard image={Ecommerce}
                               title={'Ecommerce Admin Page'}
                               subtitle={'This project is a MERN (MongoDB, Express, React, Node.js) stack web application designed to showcase the fundamental CRUD operations.'}
