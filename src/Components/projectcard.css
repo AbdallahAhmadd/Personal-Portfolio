@@ -93,6 +93,14 @@
 
 }
 
+@media (max-width: 600px) {
+    #overlay button{
+        font-size: 10px;
+
+    }
+
+}
+
 #overlay button:hover{
     background-color: hsl(0, 0%, 20%);
     transform: scale(1.1);
