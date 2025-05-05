@@ -139,56 +139,107 @@
 }
 
 
+#project-view-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    gap: 2rem;
+    position: relative;
+}
+
+.back-arrow {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 10;
+    transition: transform 0.2s ease;
+}
+
+.back-arrow:hover {
+    transform: scale(1.1);
+    color: hsl(75, 94%, 57%);
+}
+
 #profile-skills-container {
-    position: relative; /* Make this container the reference point for absolute positioning */
+    position: relative;
     display: flex;
     flex-direction: column;
     height: 100%;
-    width: 24%;
+    width: 30%;
     margin: 0;
     justify-content: center;
     align-items: center;
-    margin-right: 2rem;
-}
-@media (max-width: 600px) {
-    #profile-skills-container {
-        width: 100%; /* Adjust the width for smaller screens */
-        margin-right: 0; /* Remove the right margin for smaller screens */
-
-    }
-
 }
 
-.fa-arrow-left {
-    position: absolute;
-    top: 0; /* Adjust as needed */
-    left: 20px; /* Adjust as needed */
-    color: white;
-    font-size: 38px;
-    cursor: pointer;
-    transform: scale(1);
-    transition: transform 0.2s linear;
-}
-.fa-arrow-left:hover{
-    transform: scale(1.1);
+#profile-projects-container {
+    width: 70%;
+    height: 100%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
+.slick-slider {
+    width: 100%;
+    margin: 0 auto;
+}
 
-#profile-projects-container{
-    width: 60%;
+.slick-slide {
+    padding: 0 10px;
     height: auto;
-    margin-left: 2rem;
-    display: grid;
-    grid-template-columns: repeat(2, auto); /* Creates 2 columns with auto width */
-    gap: 10px; /* Adjust gap as needed */
 }
 
-@media (max-width: 600px){
-    #profile-projects-container{
-        display: flex;
+.slick-prev, .slick-next {
+    z-index: 1;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+}
+
+.slick-prev:before, .slick-next:before {
+    color: white;
+    font-size: 20px;
+}
+
+.slick-prev {
+    left: 10px;
+}
+
+.slick-next {
+    right: 10px;
+}
+
+.slick-dots {
+    bottom: -30px;
+}
+
+.slick-dots li button:before {
+    color: white;
+}
+
+.slick-dots li.slick-active button:before {
+    color: white;
+}
+
+@media (max-width: 1200px) {
+    #project-view-container {
         flex-direction: column;
-        width: 100%;
+        gap: 1rem;
     }
 
+    #profile-skills-container {
+        width: 100%;
+        height: auto;
+    }
+
+    #profile-projects-container {
+        width: 100%;
+        height: auto;
+    }
 }
 

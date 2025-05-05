@@ -125,5 +125,184 @@
     margin: 0;
 }
 
+#projects-grid-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 20px;
+    padding: 20px;
+    height: calc(100% - 60px);
+    min-height: 600px; /* Increased to accommodate two rows */
+}
+
+.project-card {
+    background-color: hsl(0, 0%, 20%);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    min-height: 250px; /* Adjusted for two rows */
+}
+
+.project-card.empty {
+    background-color: transparent;
+    border: 2px dashed hsl(0, 0%, 30%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: hsl(0, 0%, 50%);
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+}
+
+.project-image-container {
+    position: relative;
+    width: 100%;
+    height: 180px; /* Adjusted for better proportions in 2x2 grid */
+    overflow: hidden;
+}
+
+.project-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.project-card:hover .project-image {
+    transform: scale(1.05);
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.project-card:hover .overlay {
+    opacity: 1;
+}
+
+.project-buttons-container {
+    display: flex;
+    gap: 10px;
+}
+
+.project-buttons-container button {
+    background: linear-gradient(140deg, hsl(75, 94%, 57%) 50%, hsl(0, 0%, 20%) 50%);
+    background-size: 200% 200%;
+    background-position: 100% 100%;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.project-buttons-container button:hover {
+    background-position: 0 0;
+    color: black;
+}
+
+.project-info {
+    padding: 15px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.project-info h2 {
+    margin: 0;
+    color: white;
+    font-size: 1.2rem;
+}
+
+.project-info p {
+    margin: 10px 0 0;
+    color: #ccc;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.pagination-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    height: 60px;
+}
+
+.pagination-button {
+    background: linear-gradient(140deg, hsl(75, 94%, 57%) 50%, hsl(0, 0%, 20%) 50%);
+    background-size: 200% 200%;
+    background-position: 100% 100%;
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pagination-button:hover:not(:disabled) {
+    background-position: 0 0;
+    color: black;
+}
+
+.pagination-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.page-indicator {
+    color: white;
+    font-size: 1rem;
+}
+
+@media (max-width: 900px) {
+    .projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .projects-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(4, 1fr);
+        min-height: 1200px; /* Adjusted for 4 rows on mobile */
+    }
+}
+
 
 
