@@ -20,6 +20,10 @@
     "src": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg"
   },
   {
+    "name": "Angular",
+    "src": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/angularjs/angularjs-original.svg"
+  },
+  {
     "name": "Bootstrap",
     "src": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bootstrap/bootstrap-original.svg"
   },
@@ -56,11 +60,23 @@
     "src": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/c/c-original.svg"
   },
   {
+    "name": "C++",
+    "src": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg"
+  },
+  {
     "name": "PostgreSQL",
     "src": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg"
   },
   {
     "name": "MsSQL",
     "src": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/microsoftsqlserver/microsoftsqlserver-plain-wordmark.svg"
+  },
+  {
+    "name": "Tailwind",
+    "src": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg"
+  },
+  {
+    "name": "Pytorch",
+    "src": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pytorch/pytorch-original-wordmark.svg"
   }
 ]
