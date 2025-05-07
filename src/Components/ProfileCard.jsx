@@ -111,7 +111,7 @@ function ProfileCard({isProject, toggleExpand}){
 
             {!isProject && (<div id={'content'}>
                 <button onClick={toggleExpand}>Projects</button>
-                <button onClick={handleGraduationClick}><i className="fa-solid fa-graduation-cap"></i>Graduation Project</button>
+                <button onClick={handleGraduationClick}>Graduation Project<i className="fa-solid fa-graduation-cap"></i></button>
                 <button onClick={handleGitClick}>Github<i className="fa-brands fa-github"></i></button>
                 <button onClick={handleLinkedInClick}>LinkedIn<i className="fa-brands fa-linkedin"></i></button>
                 <button onClick={handleInstagramClick}>Instagram<i className="fa-brands fa-instagram"></i></button>
