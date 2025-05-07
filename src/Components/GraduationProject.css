@@ -9,30 +9,26 @@
     padding: 0;
     color: white;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    overflow: hidden;
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
 }
 
 .graduation-content {
     max-width: 1200px;
     width: 100%;
-    padding-top: 1rem;
-    height: 100%;
+    padding: 1rem;
+    min-height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     margin: 0 auto;
 }
 
 .graduation-section {
     animation: fadeIn 0.5s ease-in;
     padding: 0 1rem;
-    flex: 1;
-    max-height: calc(100vh - 200px);
     width: 100%;
     box-sizing: border-box;
 }
@@ -261,8 +257,14 @@ li:before {
 @media (max-width: 768px) {
     #graduation-container {
         padding: 0;
+        height: auto;
+        min-height: 100vh;
     }
     .graduation-content {
+        padding: 0.5rem;
+        height: auto;
+    }
+    .graduation-section {
         padding: 0 0.5rem;
     }
     .graduation-section h1 {
