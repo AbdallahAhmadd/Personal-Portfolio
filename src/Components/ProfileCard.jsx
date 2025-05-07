@@ -3,6 +3,7 @@ import SkillsCard from '../Components/Skills/Skills.jsx'
 import Personal from '../assets/Images/MyPic.jpeg'
 import {useState} from "react";
 import ProjectsCard from "./ProjectsCard.jsx";
+import GraduationProject from "./GraduationProject.jsx";
 import HeartLink from '../../src/assets/Images/HeartLink.png'
 import Qr from '../assets/Images/Qrcode.png'
 import CardInfo from '../assets/Images/CardInfo.png'
@@ -21,7 +22,9 @@ function handleInstagramClick(){
     window.open('https://www.instagram.com/abdallahahmed___/')
 }
 
-function ProfileCard({isProject,toggleExpand}){
+function ProfileCard({isProject, toggleExpand}){
+    const [showGraduation, setShowGraduation] = useState(false);
+
     const projects = [
         {
             image: HeartLink,
@@ -74,6 +77,18 @@ function ProfileCard({isProject,toggleExpand}){
         }
     ];
 
+    const handleGraduationClick = () => {
+        setShowGraduation(true);
+    };
+
+    const handleGraduationBack = () => {
+        setShowGraduation(false);
+    };
+
+    if (showGraduation) {
+        return <GraduationProject onBack={handleGraduationBack} />;
+    }
+
     return(
         <div id="container" className={isProject ? 'row' : ''}>
 
@@ -96,6 +111,7 @@ function ProfileCard({isProject,toggleExpand}){
 
             {!isProject && (<div id={'content'}>
                 <button onClick={toggleExpand}>Projects</button>
+                <button onClick={handleGraduationClick}><i className="fa-solid fa-graduation-cap"></i>Graduation Project</button>
                 <button onClick={handleGitClick}>Github<i className="fa-brands fa-github"></i></button>
                 <button onClick={handleLinkedInClick}>LinkedIn<i className="fa-brands fa-linkedin"></i></button>
                 <button onClick={handleInstagramClick}>Instagram<i className="fa-brands fa-instagram"></i></button>

@@ -1,0 +1,303 @@
+#graduation-container {
+    width: 100vw;
+    height: 100vh;
+    min-height: 100vh;
+    min-width: 100vw;
+    position: relative;
+    background-color: hsl(0, 0%, 12%);
+    border-radius: 24px;
+    padding: 0;
+    color: white;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.graduation-content {
+    max-width: 1200px;
+    width: 100%;
+    padding-top: 1rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.graduation-section {
+    animation: fadeIn 0.5s ease-in;
+    padding: 0 1rem;
+    flex: 1;
+    max-height: calc(100vh - 200px);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+@keyframes fadeIn {
+    from { 
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to { 
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.graduation-section h1 {
+    font-size: 3rem;
+    margin-bottom: 3rem;
+    color: hsl(75, 94%, 57%);
+    text-align: center;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.graduation-section h2 {
+    font-size: 2rem;
+    margin: 2rem 0 1.5rem;
+    color: hsl(75, 94%, 57%);
+    font-weight: 600;
+    letter-spacing: -0.3px;
+}
+
+.project-overview, .project-features, .tech-stack, .project-impact {
+    background-color: hsl(0, 0%, 18%);
+    padding: 2rem;
+    border-radius: 16px;
+    margin-bottom: 2.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid hsl(0, 0%, 25%);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-overview:hover, .project-features:hover, .tech-stack:hover, .project-impact:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.overview-image-container img {
+    height: 330px;
+    object-fit:fill;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.image-grid-aim {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.project-overview p, .project-impact p {
+    line-height: 1.8;
+    color: #e0e0e0;
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+}
+
+.project-overview p a {
+    color: hsl(75, 94%, 57%);
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+}
+
+.project-overview p a:hover {
+    opacity: 0.8;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    margin: 1rem 0;
+    padding-left: 2rem;
+    position: relative;
+    color: #e0e0e0;
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+li:before {
+    content: "•";
+    color: hsl(75, 94%, 57%);
+    position: absolute;
+    left: 0;
+    font-size: 1.5rem;
+    line-height: 1;
+}
+
+.image-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.image-container {
+    background-color: hsl(0, 0%, 18%);
+    padding: 1.5rem;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid hsl(0, 0%, 25%);
+    transition: transform 0.3s ease;
+}
+
+.image-container:hover {
+    transform: translateY(-4px);
+}
+
+.image-container img {
+    width: 100%;
+    height: 250px;
+    object-fit:fill;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.image-container p {
+    color: #e0e0e0;
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.back-button {
+    position: absolute;
+    top: 2.5rem;
+    left: 2.5rem;
+    margin: 0.5rem;
+    background: linear-gradient(140deg, hsl(75, 94%, 57%) 50%, hsl(0, 0%, 20%) 50%);
+    background-size: 200% 200%;
+    background-position: 100% 100%;
+    color: white;
+    border: none;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-size: 1.1rem;
+    z-index: 10;
+}
+
+.back-button:hover {
+    background-position: 0 0;
+    color: black;
+    transform: translateX(-4px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.pagination-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2.5rem;
+    margin-top: auto;
+    padding: 1.5rem;
+}
+
+.pagination-button {
+    background: linear-gradient(140deg, hsl(75, 94%, 57%) 50%, hsl(0, 0%, 20%) 50%);
+    background-size: 200% 200%;
+    background-position: 100% 100%;
+    color: white;
+    border: none;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-size: 1.1rem;
+}
+
+.pagination-button:hover:not(:disabled) {
+    background-position: 0 0;
+    color: black;
+    transform: scale(1.1);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.pagination-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.page-indicator {
+    color: #e0e0e0;
+    font-size: 1.2rem;
+    font-weight: 500;
+    padding: 0.6rem 1.2rem;
+    background-color: hsl(0, 0%, 18%);
+    border-radius: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    min-width: 120px;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    #graduation-container {
+        padding: 0;
+    }
+    .graduation-content {
+        padding: 0 0.5rem;
+    }
+    .graduation-section h1 {
+        font-size: 2.5rem;
+        margin-bottom: 2rem;
+    }
+    .graduation-section h2 {
+        font-size: 1.8rem;
+    }
+    .image-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    .project-overview, .project-features, .tech-stack, .project-impact {
+        padding: 1.5rem;
+    }
+    .pagination-controls {
+        gap: 2rem;
+    }
+    .back-button {
+        top: 1.2rem;
+        left: 1.2rem;
+        margin: 0.3rem;
+        width: 38px;
+        height: 38px;
+        font-size: 1rem;
+    }
+    .pagination-button {
+        width: 38px;
+        height: 38px;
+        font-size: 1rem;
+    }
+    .page-indicator {
+        font-size: 1.1rem;
+        padding: 0.5rem 1rem;
+        min-width: 100px;
+    }
+} 
