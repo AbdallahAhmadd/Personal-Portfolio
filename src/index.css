@@ -488,8 +488,38 @@ h3 {
   pointer-events: none;
 }
 
-.road-top {
+/* The paved road's sliding window, and the layer inside it. Both only ever
+   move by transform, so the GPU can do it without repainting the road. */
+.road-reveal {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  transform: translate3d(0, -100%, 0);
+  will-change: transform;
+}
+
+.road-reveal > .road-reveal {
+  overflow: visible;
+  transform: translate3d(0, 100%, 0);
+}
+
+.car-rig {
+  position: absolute;
   z-index: 3;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  transform-origin: 0 0;
+  will-change: transform;
+}
+
+.car-rig svg {
+  position: absolute;
+  left: -20px;
+  top: -30px;
+  overflow: visible;
 }
 
 .road-svg path {
@@ -2542,6 +2572,26 @@ html.is-play .oc {
 @media (max-width: 900px) {
   .hero {
     min-height: auto;
+  }
+
+  /* Blurring what scrolls behind these costs a repaint every frame on a phone. */
+  .hud,
+  .switch,
+  .trip,
+  .hero-tag {
+    backdrop-filter: none;
+  }
+
+  .hud {
+    background: rgba(14, 17, 24, 0.95);
+  }
+
+  .switch {
+    background: rgba(14, 17, 24, 0.92);
+  }
+
+  .sky {
+    transition: none;
   }
 
   .road-intro {

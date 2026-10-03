@@ -123,8 +123,8 @@ function Confetti() {
 const Road = forwardRef(function Road({ onOpen, onActive }, ref) {
   const wrapRef = useRef(null);
   const pathRef = useRef(null);
-  const pavedRef = useRef(null);
-  const glowRef = useRef(null);
+  const revealRef = useRef(null);
+  const revealInnerRef = useRef(null);
   const carRef = useRef(null);
   const fillRef = useRef(null);
   const measure = useRef(null);
@@ -195,7 +195,7 @@ const Road = forwardRef(function Road({ onOpen, onActive }, ref) {
     if (!m || !wrap) return;
     const box = wrap.getBoundingClientRect();
     const target = window.innerHeight * EYE - box.top;
-    const { ys, step, length } = m;
+    const { ys, xs, yr, step, length, count, height } = m;
 
     let travelled;
     if (target <= ys[0]) travelled = 0;
@@ -212,13 +212,24 @@ const Road = forwardRef(function Road({ onOpen, onActive }, ref) {
       travelled = Math.min(length, (lo + (target - ys[lo]) / span) * step);
     }
 
-    const path = pathRef.current;
-    const p = path.getPointAtLength(travelled);
-    const ahead = path.getPointAtLength(Math.min(length, travelled + 2));
-    const behind = path.getPointAtLength(Math.max(0, travelled - 2));
-    const angle = (Math.atan2(ahead.y - behind.y, ahead.x - behind.x) * 180) / Math.PI;
-    carRef.current.setAttribute("transform", `translate(${p.x} ${p.y}) rotate(${angle}) scale(1.3)`);
-    for (const el of [pavedRef.current, glowRef.current]) el.style.strokeDashoffset = String(length - travelled);
+    // Read the car's spot off the sampled table instead of asking the path,
+    // and only ever move layers with transforms, so scrolling never repaints
+    // the page-tall road.
+    const f = travelled / step;
+    const i = Math.min(count - 1, Math.floor(f));
+    const j = Math.min(count - 1, i + 1);
+    const t = f - i;
+    const x = xs[i] + (xs[j] - xs[i]) * t;
+    const y = yr[i] + (yr[j] - yr[i]) * t;
+    const a = Math.max(0, i - 1);
+    const b = Math.min(count - 1, i + 2);
+    const angle = (Math.atan2(yr[b] - yr[a], xs[b] - xs[a]) * 180) / Math.PI;
+    carRef.current.style.transform = `translate3d(${x}px, ${y}px, 0) rotate(${angle}deg) scale(1.3)`;
+
+    // The paved road is drawn once and shown through a window that slides
+    // down with the car: the outer layer moves down, the inner one back up.
+    revealRef.current.style.transform = `translate3d(0, ${y - height}px, 0)`;
+    revealInnerRef.current.style.transform = `translate3d(0, ${height - y}px, 0)`;
     if (fillRef.current) fillRef.current.style.clipPath = `inset(0 ${100 - (travelled / length) * 100}% 0 0)`;
 
     let last = -1;
@@ -243,9 +254,13 @@ const Road = forwardRef(function Road({ onOpen, onActive }, ref) {
     const step = 3;
     const count = Math.ceil(length / step) + 1;
     const ys = new Float32Array(count);
+    const xs = new Float32Array(count);
+    const yr = new Float32Array(count);
     for (let i = 0; i < count; i += 1) {
-      ys[i] = path.getPointAtLength(Math.min(length, i * step)).y;
-      if (i > 0 && ys[i] < ys[i - 1]) ys[i] = ys[i - 1];
+      const point = path.getPointAtLength(Math.min(length, i * step));
+      xs[i] = point.x;
+      yr[i] = point.y;
+      ys[i] = i > 0 ? Math.max(point.y, ys[i - 1]) : point.y;
     }
     const lenAtY = (y) => {
       let i = 0;
@@ -253,8 +268,7 @@ const Road = forwardRef(function Road({ onOpen, onActive }, ref) {
       return Math.min(length, i * step);
     };
     const pins = geo.pins.map((pin) => ({ index: pin.index, y: pin.y, len: lenAtY(pin.y) }));
-    measure.current = { ys, step, length, pins };
-    for (const el of [pavedRef.current, glowRef.current]) el.style.strokeDasharray = `${length} ${length}`;
+    measure.current = { ys, xs, yr, step, length, count, height: geo.h, pins };
 
     const next = {};
     for (const pin of pins) next[route[pin.index].id] = pin.len / length;
@@ -320,16 +334,24 @@ const Road = forwardRef(function Road({ onOpen, onActive }, ref) {
           <path d={geo.d} className="road-edge" />
           <path ref={pathRef} d={geo.d} className="road-base" />
           <path d={geo.d} className="road-lane" />
-          <path ref={glowRef} d={geo.d} className="road-glow" stroke="url(#paved)" filter="url(#glow)" />
-          <path ref={pavedRef} d={geo.d} className="road-paved" stroke="url(#paved)" />
         </svg>
       )}
       {geo && (
-        <svg className="road-svg road-top" width={geo.w} height={geo.h} viewBox={`0 0 ${geo.w} ${geo.h}`} aria-hidden="true">
-          <g ref={carRef} className="car" style={{ "--c": accent }}>
+        <div className="road-reveal" ref={revealRef} aria-hidden="true">
+          <div className="road-reveal" ref={revealInnerRef}>
+            <svg className="road-svg" width={geo.w} height={geo.h} viewBox={`0 0 ${geo.w} ${geo.h}`}>
+              <path d={geo.d} className="road-glow" stroke="url(#paved)" filter="url(#glow)" />
+              <path d={geo.d} className="road-paved" stroke="url(#paved)" />
+            </svg>
+          </div>
+        </div>
+      )}
+      {geo && (
+        <div className="car-rig" ref={carRef} aria-hidden="true">
+          <svg className="car" viewBox="-20 -30 100 60" width="100" height="60" style={{ "--c": accent }}>
             <Car />
-          </g>
-        </svg>
+          </svg>
+        </div>
       )}
 
       {route.map((item, index) => {
