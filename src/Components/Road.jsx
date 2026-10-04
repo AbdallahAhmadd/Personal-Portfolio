@@ -6,6 +6,46 @@ import Mark, { Badge } from "./Mark.jsx";
 // Where the car sits on screen, as a fraction of the viewport height.
 const EYE = 0.55;
 
+// Browsers that can tie an animation straight to the scroll position run it
+// alongside scrolling itself, off the main thread, so the car and the paved
+// road can never trail behind the page. Others fall back to a scroll handler.
+const SCROLL_LINKED = typeof window !== "undefined" && "ScrollTimeline" in window;
+
+// How far along the road the car is when the eye line sits at height `target`.
+function travelledAt(m, target) {
+  const { ys, step, length } = m;
+  if (target <= ys[0]) return 0;
+  if (target >= ys[ys.length - 1]) return length;
+  let lo = 0;
+  let hi = ys.length - 1;
+  while (hi - lo > 1) {
+    const mid = (lo + hi) >> 1;
+    if (ys[mid] <= target) lo = mid;
+    else hi = mid;
+  }
+  const span = ys[hi] - ys[lo] || 1;
+  return Math.min(length, (lo + (target - ys[lo]) / span) * step);
+}
+
+// Where the car is, and which way it faces, that far along, read off the
+// sampled table instead of asking the path.
+function poseAt(m, travelled) {
+  const { xs, yr, step, count } = m;
+  const f = travelled / step;
+  const i = Math.min(count - 1, Math.floor(f));
+  const j = Math.min(count - 1, i + 1);
+  const t = f - i;
+  const a = Math.max(0, i - 1);
+  const b = Math.min(count - 1, i + 2);
+  return {
+    x: xs[i] + (xs[j] - xs[i]) * t,
+    y: yr[i] + (yr[j] - yr[i]) * t,
+    angle: (Math.atan2(yr[b] - yr[a], xs[b] - xs[a]) * 180) / Math.PI,
+  };
+}
+
+const carTransform = ({ x, y, angle }) => `translate3d(${x}px, ${y}px, 0) rotate(${angle}deg) scale(1.3)`;
+
 function colorAt(index) {
   for (let i = index; i < route.length; i += 1) if (route[i].color) return route[i].color;
   return chapters[chapters.length - 1].color;
@@ -134,6 +174,7 @@ const Road = forwardRef(function Road({ onOpen, onActive }, ref) {
   const [marks, setMarks] = useState({});
   const reachedRef = useRef(-1);
   const hudRef = useRef(false);
+  const linked = useRef([]);
 
   // Lay the road through every pin on the page.
   const build = useCallback(() => {
@@ -194,42 +235,17 @@ const Road = forwardRef(function Road({ onOpen, onActive }, ref) {
     const wrap = wrapRef.current;
     if (!m || !wrap) return;
     const box = wrap.getBoundingClientRect();
-    const target = window.innerHeight * EYE - box.top;
-    const { ys, xs, yr, step, length, count, height } = m;
+    const travelled = travelledAt(m, window.innerHeight * EYE - box.top);
+    const { length, height } = m;
 
-    let travelled;
-    if (target <= ys[0]) travelled = 0;
-    else if (target >= ys[ys.length - 1]) travelled = length;
-    else {
-      let lo = 0;
-      let hi = ys.length - 1;
-      while (hi - lo > 1) {
-        const mid = (lo + hi) >> 1;
-        if (ys[mid] <= target) lo = mid;
-        else hi = mid;
-      }
-      const span = ys[hi] - ys[lo] || 1;
-      travelled = Math.min(length, (lo + (target - ys[lo]) / span) * step);
+    // Without scroll-linked animations, move the car and the paved road's
+    // window here. Only transforms change, so the road itself never repaints.
+    if (!linked.current.length) {
+      const pose = poseAt(m, travelled);
+      carRef.current.style.transform = carTransform(pose);
+      revealRef.current.style.transform = `translate3d(0, ${pose.y - height}px, 0)`;
+      revealInnerRef.current.style.transform = `translate3d(0, ${height - pose.y}px, 0)`;
     }
-
-    // Read the car's spot off the sampled table instead of asking the path,
-    // and only ever move layers with transforms, so scrolling never repaints
-    // the page-tall road.
-    const f = travelled / step;
-    const i = Math.min(count - 1, Math.floor(f));
-    const j = Math.min(count - 1, i + 1);
-    const t = f - i;
-    const x = xs[i] + (xs[j] - xs[i]) * t;
-    const y = yr[i] + (yr[j] - yr[i]) * t;
-    const a = Math.max(0, i - 1);
-    const b = Math.min(count - 1, i + 2);
-    const angle = (Math.atan2(yr[b] - yr[a], xs[b] - xs[a]) * 180) / Math.PI;
-    carRef.current.style.transform = `translate3d(${x}px, ${y}px, 0) rotate(${angle}deg) scale(1.3)`;
-
-    // The paved road is drawn once and shown through a window that slides
-    // down with the car: the outer layer moves down, the inner one back up.
-    revealRef.current.style.transform = `translate3d(0, ${y - height}px, 0)`;
-    revealInnerRef.current.style.transform = `translate3d(0, ${height - y}px, 0)`;
     if (fillRef.current) fillRef.current.style.clipPath = `inset(0 ${100 - (travelled / length) * 100}% 0 0)`;
 
     let last = -1;
@@ -244,6 +260,43 @@ const Road = forwardRef(function Road({ onOpen, onActive }, ref) {
       hudRef.current = on;
       setHudOn(on);
     }
+  }, []);
+
+  // Bake the whole drive into keyframes on the page's scroll timeline: the
+  // car's pose, and the paved road's window following it, at every point.
+  const syncScroll = useCallback(() => {
+    for (const animation of linked.current) animation.cancel();
+    linked.current = [];
+    const m = measure.current;
+    const wrap = wrapRef.current;
+    if (!SCROLL_LINKED || !m || !wrap || !carRef.current) return;
+    const root = document.documentElement;
+    const range = root.scrollHeight - window.innerHeight;
+    if (range <= 0) return;
+    const top = wrap.getBoundingClientRect().top + window.scrollY;
+    const eye = window.innerHeight * EYE;
+    const progressAt = (y) => (top + y - eye) / range;
+    const frameAt = (offset) => ({ offset, ...poseAt(m, travelledAt(m, offset * range + eye - top)) });
+
+    const frames = [frameAt(0)];
+    for (let i = 0; i < m.count; i += 6) {
+      const offset = progressAt(m.ys[i]);
+      if (offset > 0 && offset < 1) frames.push({ offset, ...poseAt(m, i * m.step) });
+    }
+    frames.push(frameAt(1));
+
+    const timing = { timeline: new window.ScrollTimeline({ source: root, axis: "block" }), fill: "both" };
+    linked.current = [
+      carRef.current.animate(frames.map((f) => ({ offset: f.offset, transform: carTransform(f) })), timing),
+      revealRef.current.animate(
+        frames.map((f) => ({ offset: f.offset, transform: `translate3d(0, ${f.y - m.height}px, 0)` })),
+        timing
+      ),
+      revealInnerRef.current.animate(
+        frames.map((f) => ({ offset: f.offset, transform: `translate3d(0, ${m.height - f.y}px, 0)` })),
+        timing
+      ),
+    ];
   }, []);
 
   // Sample the path once per layout so scrolling only does a binary search.
@@ -273,8 +326,28 @@ const Road = forwardRef(function Road({ onOpen, onActive }, ref) {
     const next = {};
     for (const pin of pins) next[route[pin.index].id] = pin.len / length;
     setMarks(next);
+    syncScroll();
     update();
-  }, [geo, update]);
+  }, [geo, update, syncScroll]);
+
+  useEffect(() => {
+    if (!SCROLL_LINKED) return undefined;
+    let frame = 0;
+    const resync = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(syncScroll);
+    };
+    const observer = new ResizeObserver(resync);
+    observer.observe(document.body);
+    window.addEventListener("resize", resync);
+    return () => {
+      cancelAnimationFrame(frame);
+      observer.disconnect();
+      window.removeEventListener("resize", resync);
+      for (const animation of linked.current) animation.cancel();
+      linked.current = [];
+    };
+  }, [syncScroll]);
 
   useEffect(() => {
     let frame = 0;

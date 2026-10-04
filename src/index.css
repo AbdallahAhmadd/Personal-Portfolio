@@ -160,20 +160,32 @@ h3 {
 }
 
 .live {
+  position: relative;
   width: 8px;
   height: 8px;
   border-radius: 50%;
   background: #7ddea2;
-  box-shadow: 0 0 0 0 #7ddea2;
+}
+
+/* The pulse scales a copy of the dot, which the GPU can do without repainting. */
+.live::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: #7ddea2;
   animation: live 2s infinite;
 }
 
 @keyframes live {
-  70% {
-    box-shadow: 0 0 0 9px transparent;
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
   }
+  70%,
   100% {
-    box-shadow: 0 0 0 0 transparent;
+    transform: scale(3.2);
+    opacity: 0;
   }
 }
 
@@ -2592,6 +2604,18 @@ html.is-play .oc {
 
   .sky {
     transition: none;
+  }
+
+  /* Phones draw SVG blur on the CPU, tile by tile as the road scrolls in, so
+     the glow becomes a soft wide stroke instead. */
+  .road-glow {
+    filter: none;
+    stroke-width: 14;
+    opacity: 0.22;
+  }
+
+  .card {
+    filter: none;
   }
 
   .road-intro {
