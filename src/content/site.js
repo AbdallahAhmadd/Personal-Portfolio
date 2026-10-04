@@ -5,13 +5,21 @@ import mapping1 from "../assets/Images/Mapping1.jpg";
 import result1 from "../assets/Images/Parking_Space7_result.jpg";
 import icmPresenting from "../assets/Images/ICM-presenting.jpg";
 import icmBadge from "../assets/Images/ICM-badge.jpg";
+import icmCertificate from "../assets/Images/ICM-certificate.jpg";
 import csteamLogo from "../assets/Images/CSTeam-logo.png";
 import disneyland from "../assets/Images/Disneyland.jpg";
+import gucGraduation from "../assets/Images/GUC-graduation.jpg";
+import gucDegree from "../assets/Images/GUC-degree.jpg";
+import ipcsCertificate from "../assets/Images/IPCS-certificate.jpg";
+import henkelPhoto from "../assets/Images/Henkel-ThinkTech.jpg";
+import henkelLanding from "../assets/Images/Henkel-landing.jpg";
+import henkelResults from "../assets/Images/Henkel-results.jpg";
 import disneylandCastle from "../assets/Images/Disneyland-castle.jpg";
 import seitechPhoto from "../assets/Images/SEITech.jpg";
 import seitechLogo from "../assets/Images/SEITech-logo.png";
 import voisCertificate from "../assets/Images/VOIS-certificate.jpg";
 import voisLogo from "../assets/Images/VOIS-logo.png";
+import qlmLogo from "../assets/Images/QLM-logo.png";
 
 export const profile = {
   name: "Abdallah Ahmed",
@@ -132,10 +140,20 @@ export const route = [
     when: "October 2025",
     title: "Henkel ThinkTech",
     tag: "Hackathon · 4th place",
-    line: "Henkel ThinkTech hackathon. Fourth place.",
+    line: "Fourth place at the Henkel ThinkTech Hackathon, Gliss edition, with an AI hair care advisor for Schwarzkopf Gliss.",
     color: "#ff7a59",
-    story: [],
-    images: [],
+    story: [
+      "The brief was Schwarzkopf Gliss. We built a digital hair care advisor: take a photo of your hair, answer a short quiz, and it tells you which Gliss line fits you, with a full shampoo, conditioner and mask routine.",
+      "The camera step runs face detection in the browser with TensorFlow.js to guide you into frame. The photo goes to Gemini Vision, which reads dryness, shine, frizz, split ends and damage. A seven-question adaptive quiz covers what a photo can't see, like colouring and heat styling.",
+      "The match comes from retrieval: semantic search over a Gliss product knowledge base with sentence transformers, then an LLM on Groq picks the line and explains why. The last step lets you try on the hairstyle of that line's celebrity ambassador with an AI hair swap.",
+      "React, TypeScript and Vite on the front, FastAPI in Python on the back. It placed fourth.",
+    ],
+    images: [
+      { src: henkelPhoto, alt: "Abdallah holding a Henkel sign in front of the Henkel ThinkTech Hackathon Gliss Edition backdrop.", caption: "At the Henkel ThinkTech Hackathon" },
+      { src: henkelLanding, alt: "The app's landing page: a row of Gliss bottles above an Online Hair Quiz call to action.", caption: "The landing page" },
+      { src: henkelResults, alt: "The results screen recommending Gliss Aqua Revive, with a routine and the image analysis.", caption: "A recommendation, with the routine and photo analysis" },
+    ],
+    links: [{ label: "GitHub", href: "https://github.com/AbdallahAhmadd/Henkel-Hackathon" }],
   },
   {
     kind: "stop",
@@ -145,7 +163,10 @@ export const route = [
     title: "Joined QLM",
     tag: "Startup",
     line: "Founding engineer. The product was still becoming itself.",
-    color: "#ff4d6a",
+    // QLM teal #9cc3c2 deepening into its navy #34394d.
+    color: "#9cc3c2",
+    gradient: "linear-gradient(150deg, #7fb0ae 0%, #4f7f86 42%, #34394d 100%)",
+    wordmark: qlmLogo,
     story: [],
     images: [],
     links: [{ label: "qlm.pro", href: "https://qlm.pro" }],
@@ -165,6 +186,11 @@ export const route = [
     images: [
       { src: icmPresenting, alt: "Abdallah presenting the parking challenges slide of his paper at ICM 2025.", caption: "Presenting at ICM 2025" },
       { src: icmBadge, alt: "Abdallah's ICM 2025 conference badge, with the conference hall behind it.", caption: "My ICM 2025 badge" },
+      {
+        src: icmCertificate,
+        alt: "IEEE certificate awarded to Abdallah Ahmed Hassan for contribution as presenter at the 37th International Conference on Microelectronics, 14 to 17 December 2025, Cairo.",
+        caption: "Presenter certificate, ICM 2025",
+      },
       { src: yolo1, alt: "YOLO model detecting cars in a parking lot camera feed.", caption: "Detection on a live lot feed" },
       { src: mapping1, alt: "Parking bays mapped onto the camera view.", caption: "Mapping the bays" },
       { src: result1, alt: "Occupied and free bays marked on a parking lot image.", caption: "Occupied and free, bay by bay" },
@@ -183,14 +209,29 @@ export const route = [
     kind: "stop",
     id: "optimization",
     side: "right",
-    when: "April 2026",
-    title: "The fleet paper",
-    tag: "Research",
-    line: "A second paper, on scheduling airport baggage vehicles.",
+    when: "May 2026",
+    title: "Optimization of Multi-AGV Scheduling for Airport Baggage Handling",
+    short: "The fleet paper",
+    tag: "IEEE paper · Presenter",
+    line: "Published at the 2026 ICEENG International Conference for Innovations in Power and Control Systems (IPCS) at MTC in Cairo, where I presented it. Scheduling the robot fleets that move airport baggage.",
     color: "#7ddea2",
-    story: [],
-    images: [],
-    links: [{ label: "Read the paper", href: "https://doi.org/10.1109/IPCS69631.2026.11604463" }],
+    citation: "Abdallah Ahmed Hassan, Abdelrahman Ewida, Haidy Ehab Elkenawy, Abdulrahman Bassem Bahy, Karim Mohamed Fathy, Dalia M. Mahfouz and Omar M. Shehata. 2026 ICEENG International Conference for Innovations in Power and Control Systems (IPCS), Cairo, Egypt, 11–14 May 2026, pp. 1–6. DOI: 10.1109/IPCS69631.2026.11604463",
+    story: [
+      "Mishandled baggage costs airports billions every year, and much of the fix comes down to how well the Automated Guided Vehicles (AGVs) that carry the bags are coordinated.",
+      "We framed AGV scheduling as a multi-objective Vehicle Routing Problem with Time Windows on a bidirectional line, then put five approaches against each other: Simulated Annealing, a Genetic Algorithm and Ant Colony Optimization, a Q-Learning agent, and a Hybrid Artificial Bee Colony algorithm we proposed, which uses discrete moves for routing and continuous updates for timing.",
+      "Across standard, small and high-pressure scenarios, the Hybrid ABC planned best: 61% better than first come, first served, with 40% fewer vehicles in the standard case. The Q-Learning agent answered in under a second, which is the trade-off the paper lands on: plan quality against real-time response.",
+    ],
+    images: [
+      {
+        src: ipcsCertificate,
+        alt: "Certificate of participation for presenting the paper Optimization of Multi-AGV Scheduling for Airport Baggage Handling at IPCS 2026, held 11 to 14 May 2026 at MTC, Cairo.",
+        caption: "Certificate for presenting at IPCS 2026",
+      },
+    ],
+    links: [
+      { label: "IEEE Xplore", href: "https://ieeexplore.ieee.org/document/11604463" },
+      { label: "GitHub", href: "https://github.com/AbdallahAhmadd/luggage_handling_optimization" },
+    ],
   },
   {
     kind: "stop",
@@ -200,7 +241,9 @@ export const route = [
     title: "QLM launches",
     tag: "Launch",
     line: "The thing teachers open is live.",
-    color: "#ffe08a",
+    color: "#9cc3c2",
+    gradient: "linear-gradient(150deg, #7fb0ae 0%, #4f7f86 42%, #34394d 100%)",
+    wordmark: qlmLogo,
     story: [],
     images: [],
     links: [{ label: "qlm.pro", href: "https://qlm.pro" }],
@@ -216,7 +259,10 @@ export const route = [
     color: "#f0c14a",
     finish: true,
     story: [],
-    images: [],
+    images: [
+      { src: gucGraduation, alt: "Abdallah in his graduation gown on the GUC ceremony lawn, under a Class 2026 banner.", caption: "Graduation day, Class of 2026" },
+      { src: gucDegree, alt: "Abdallah's GUC degree certificate: Bachelor of Science in Media Engineering and Technology, Computer Science and Engineering.", caption: "The degree" },
+    ],
   },
 ];
 
